@@ -38,9 +38,17 @@ function checkForCorrectInputs(){
 }
 function preValues()
 {
-    
+    if(typeof(galRequest) === undefined ||typeof(delAddress) === undefined 
+        || typeof(delDate) === undefined)
+        {
+            return false;
+        }
+    else
+    {
     savePrevious.innerText += "\n" + 
     "Gallons requested :"+ saveData.galRequest + "\n" + 
     "Delivery address :" + saveData.delAddress + "\n" + 
     "Delivery Date :" + saveData.delDate + "\n\n";
+    }
+    
 }
