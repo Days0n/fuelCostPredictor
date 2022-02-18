@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/8e3b81f3aa.js" crossorigin="anonymous"></script>
+    <script defer src="profile.js"> </script>
+</head>
+<body>
+    <div class="container">
+        <div class="leftbox">
+            <nav>
+                <a onclick="tabs(0)" class="tab active">
+                <i class="fa fa-user"></i>
+                </a>
+            </nav>
+        </div>
+        <div class="info">
+            <h1>Personal Info</h1>
+            <h2>Username</h2>
+                <input type="text" id="username" class="input" value="davidson">
+            <h2>Password</h2>
+                <input type="password" id="password" class="input" value="watermelon">
+            <h2>Email</h2>
+                <input type="text" id="email"  class="input" value="davidsonvu@gmail.com">
+            <h2>Full Name</h2>
+                <input type="text" id="fullname" class="input" value="Davidson Vu">
+            <h2>Address</h2>
+                <input type="text" id="address" class="input" value="12345 Sesame St">
+            <button onclick="validate()" class="btn">
+                Update
+            </button>
+        </div>
+    </div>
+</body>
+</html>
