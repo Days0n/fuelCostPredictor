@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <title>FuelPredictor - Login</title>
+            
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>           
+    
+            <link href="{% static "css/main.css" %}" rel="stylesheet">
+        <script>
+        var clearRegistration = function() {
+            $("#registration-form").find("input[type='text']").val("");
+            $("#registration-form").find("input[type='password']").val("");
+        }
+
+        var clearLogin = function() {
+            $("#login-form").find("input[type='text']").val("");
+            $("#login-form").find("input[type='password']").val("");
+        }
+        </script>
+    </head>
+    <body class="text-center">
+        <div class="d-flex flex-column justify-content-between align-items-end w-100" style="min-height: 100vh;">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark w-100">
+                <a class="navbar-brand" href="#">FuelPredictor</a>  
+                <a class="nav-item nav-link" href="{% url 'index_page' %}">Home</a>
+                <a class="active nav-item nav-link" href="{% url 'login_page' %}">Login</a>
+            </nav>
+
+            <div class="mx-auto p-3 bg-dark" style="border-radius: 30px; min-width: 40vw">
+                {% if login_error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error_msg }}
+                </div>
+                {% endif %}
+                {% if register_success %}
+                <div class="alert alert-info" role="alert">
+                    {{ msg_register_success }}
+                </div>
+                {% endif %}
+                <div class="d-flex flex-row justify-content-center w-100">
+                    <form id="login-form" name="login-form" class="d-flex flex-column p-2" action="{{ action }}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group m-1">
+                            <p class="lead text-underline w-100 mx-auto">Returning Users</p>
+                        </div>
+                        <div class="form-group m-1">
+                            <label class="col-form-label w-100 text-left" for="username">Username</label><br>
+                            <input type="text" name="username" class="form-control-sm" required oninput="clearRegistration()">
+                        </div>
+                        <div class="form-group m-1">
+                            <label class="col-form-label w-100 text-left" for="password">Password</label><br>
+                            <input type="password" name="password" class="form-control-sm" required oninput="clearRegistration()">
+                        </div>
+                        <div class="form-group m-1">
+                            <input type="submit" name="login-submit" value="Log In" class="btn btn-primary w-100 mt-3">
+                        </div>
+                    </form>
+                    <img class="p-5 m-3 align-self-center" src="{% static "images/divider.png" %}">
+                    <form id="registration-form" name="registration-form" class="d-flex flex-column p-2" action="login" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group m-1">
+                            <p class="lead text-underline w-100 mx-auto">New Users</p>
+                        </div>
+                        <div class="form-group m-1">
+                            <label class="col-form-label w-100 text-left" for="username-register">Username</label><br>
+                            <input type="text" name="username-register" class="form-control-sm" required oninput="clearLogin()">
+                        </div>
+                        <div class="form-group m-1">
+                            <label class="col-form-label w-100 text-left" for="password-register">Password</label><br>
+                            <input type="password" name="password-register" class="form-control-sm" required oninput="clearLogin()">
+                        </div>
+                        <div class="form-group m-1">
+                            <label class="col-form-label w-100 text-left" for="password-confirm">Confirm password</label><br>
+                            <input type="password" name="password-confirm" class="form-control-sm" required oninput="clearLogin()">
+                        </div>
+                        <div class="form-group m-1">
+                            <input type="submit" name="register-submit" value="Register" class="btn btn-primary w-100 mt-3">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <footer class="mx-auto mt-5 foot">
+                <div>
+                    <a href="https://github.com/Days0n/fuelCostPredictor">Github</a>. By Zia Yacoubou, Dayson Vu, and Boris Ofon.</p>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
