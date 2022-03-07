@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "/Users/zia/.dotnet/store/|arch|/|tfm|",
-      "/Users/zia/.nuget/packages"
-    ]
-  }
-}
