@@ -1,5 +1,5 @@
 from django.contrib import admin
-from fuel.forms import QuoteForm
+from .models import Quotes
 
 # Register your models here.
-
+admin.site.register(Quotes)

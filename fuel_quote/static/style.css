@@ -1,0 +1,47 @@
+body{
+    background-image:url('fuel.jpg');
+    background-size: cover;
+}
+h1{
+    color: rgb(78, 68, 46);
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.main{
+    background-color: lightgrey;
+    width: 400px;
+    border: 12px solid green;
+    padding: 50px;
+    margin: 30px;
+}
+
+.pre{
+    background-color: rgb(231, 198, 198);
+    width: 900px;
+    border: 12px solid rgb(90, 96, 146);
+    padding: 50px;
+    margin: 30px;
+}
+
+#id_gallons_requested{
+    
+    width: 100px;
+    height: 40px;
+}
+#id_delivery_address{
+    width: 200px;
+    height: 40px;
+}
+#id_amount_due{
+    width: 200px;
+    height: 40px;
+}
+#id_suggested_price{
+    width: 200px;
+    height: 40px;
+}
+#id_delivery_date{
+    width: 200px;
+    height: 40px;
+}

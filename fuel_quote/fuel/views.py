@@ -1,27 +1,15 @@
 from django.shortcuts import render
-from  .forms import QuoteForm 
+from .import models
+from .import forms
 
 # Create your views here.
-
 def quote(request):
-    if request.method == 'POST':
-        form = QuoteForm(request.POST)
-        if form.is_valid():
-            gallons_requested = form.cleaned_data['gallons_requested']
-            delivery_address = form.cleaned_data['delivery_address']
-            delivery_date = form.cleaned_data['delivery_date']
+    form = forms.HomeForm(request.POST)
+    if form.is_valid():
+        form.save()
+    return render(request, 'quote.html',{'myform': form})
 
-            print(gallons_requested,delivery_address,delivery_date)
-    form = QuoteForm()
-    return render(request, 'form.html',{'form':form})
-
-def previousQuotes(request):
-    if request.method == 'POST':
-        form = QuoteForm(request.POST)
-        if form.is_valid():
-            print('Valid')
-    form = QuoteForm()
-    return render(request, 'form.html',{'form':form})
-
-
-        
+def previous_quotes(request):
+    history = models.Quotes.objects.all()
+    args = {'history':history}
+    return render(request,'previous_quotes.html',args)
