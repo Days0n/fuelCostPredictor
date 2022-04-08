@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>FuelPredictor</title>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>           
+
+        <link href="{% static "css/main.css" %}" rel="stylesheet">
+        <link href="{% static "css/index.css" %}" rel="stylesheet">
+    </head>
+    <body class="text-center">
+        <div class="d-flex flex-column justify-content-between align-items-end w-100" style="min-height: 100vh;">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark w-100">
+                <a class="navbar-brand" href="#">FuelPredictor</a>  
+                <a class="active nav-item nav-link" href="{% url 'index_page' %}">Home</a>
+                {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'profile_page' %}">Profile</a>
+                <a class="nav-item nav-link" href="{% url 'quote_page' %}">Request Quote</a>
+                <a class="nav-item nav-link" href="{% url 'history_page' %}">View History</a>
+                <a class="nav-item nav-link" href="{% url 'logout_page' %}">Log Out</a>
+                <span class="ml-auto">
+                    <p class="foot mb-0 mr-1"> Welcome {{ user.username }}!</p>
+                </span>
+                {% else %}
+                <a class="nav-item nav-link" href="{% url 'login_page' %}">Log In</a>
+                {% endif %}
+            </nav>
+
+            <div class="mx-auto p-3 bg-dark" style="border-radius: 10px"> 
+                <h1 class="p-1">Get a personalized fuel quote today!</h1>
+                <p class="lead p-1">Don't have an account? Register now</p>
+                <p class="lead p-1">
+                    <a href="login" class="btn btn-lg btn-primary">Create an account</a>
+                </p>
+            </div>
+
+            <footer class="mx-auto mt-5 foot">
+                <div>
+                    <a href="https://github.com/Days0n/fuelCostPredictor">Github</a>. By Zia Yacoubou, Dayson Vu, and Boris Ofon.</p>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>FuelPredictor - Update your profile</title>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>           
+
+        <link href="{% static "css/main.css" %}" rel="stylesheet">
+        
+    </head>
+    <body class="text-center">
+        <div class="d-flex flex-column justify-content-between align-items-end w-100" style="min-height: 100vh;">
+                <nav class="navbar navbar-expand-md navbar-dark bg-dark w-100">
+                    <a class="navbar-brand" href="#">FuelPredictor</a>  
+                    <a class="nav-item nav-link" href="{% url 'index_page' %}">Home</a>
+                    <a class="active nav-item nav-link" href="{% url 'profile_page' %}">Profile</a>
+                    <a class="nav-item nav-link" href="{% url 'quote_page' %}">Request a quote</a>
+                    <a class="nav-item nav-link" href="{% url 'history_page' %}">View History</a>
+                    <a class="nav-item nav-link" href="{% url 'logout_page' %}">Log Out</a>
+                    <span class="ml-auto">
+                        <p class="foot mb-0 mr-1"> Welcome {{ user.username }}!</p>
+                    </span>
+                </nav>
+                {% if incomplete_profile %}
+                        <div class="alert alert-danger mx-auto mt-4 text-center" role="alert">
+                            {{ msg_update_profile }}
+                        </div>
+                {% endif %}
+                {% if profile_updated %}
+                        <div class="alert alert-info mx-auto mt-4 text-center" role="alert">
+                            {{ msg_profile_updated }}
+                        </div>
+                {% endif %}
+                <div class="mx-auto m-2 p-4 bg-dark flex-grow-5" style="border-radius: 10px">
+                    <!--<div class="alert alert-danger" role="alert">
+                        Could not find an account with that username and password
+                    </div>-->
+
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <form name="login-form" class="d-flex flex-column p-2" action="profile" method="POST"> {% csrf_token %}
+                            <div class="form-group m-1">
+                                <p class="lead mb-1 w-50 mx-auto">Update your profile</p>
+                                <p class="foot mt-0">* indicates mandatory fields</p>
+                            </div>
+                            <div class="form-group m-1">
+                                <p class="text-underline  mx-auto text-left">Personal Information</p>
+                            </div>
+                            <!--<div class="d-flex flex-row justify-content-between w-100">
+                                <div class="form-group m-1 w-50">
+                                    <label class="col-form-label w-100 text-left" for="first-name">First Name *</label><br>
+                                    <input type="text" name="first-name" class="form-control-sm" required>
+                                </div>
+                                <div class="form-group m-1 w-50">
+                                    <label class="col-form-label w-100 text-left" for="last-name">Last Name *</label><br>
+                                    <input type="text" name="last-name" class="form-control-sm" required>
+                                </div>
+                            </div>-->
+                            <div class="form-group m-1">
+                                <label class="col-form-label w-100 text-left" for="full_name">Full Name *</label><br>
+                                <input type="text" id="full_name" name="full_name" class="form-control-sm w-100" size=50 maxlength=50 required value='{{ full_name}}'>
+                            </div>
+                            <div class="form-group m-1">
+                                <label class="col-form-label w-100 text-left" for="address_1">Address, Line 1 *</label><br>
+                                <input type="text" id="address_1" name="address_1" class="form-control-sm w-100" size=50 maxlength=100 required value = '{{ address_1 }}'>
+                            </div>
+                            <div class="form-group m-1">
+                                <label class="col-form-label w-100 text-left" for="address_2">Address, Line 2</label><br>
+                                <input type="text" id="address_2" name="address_2" class="form-control-sm w-100" size=50 maxlength=100 value ='{{ address_2 }}'>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between w-100">
+                                <div class="form-group m-1 w-50">
+                                    <label class="col-form-label w-100 text-left" for="city_name">City *</label><br>
+                                    <input type="text" id="city_name" name="city_name" class="form-control-sm" maxlength=100 required value = '{{ city_name }}'>
+                                </div>
+                                <div class="form-group m-1 w-50 flex-grow-1">
+                                    <label class="col-form-label w-100 text-left" for="state">State *</label><br>
+                                    <select class="form-control-sm w-100" id="state" name="state">
+                                        {% if state == "none" %}
+                                        <option disabled selected>---</option>
+                                        {% else %}
+                                        <option disabled>---</option>
+                                        {% endif %}
+                                     
+                                        {% for s in states %}
+                                        {% if s == state %}
+                                        <option selected>{{ s }}</option>
+                                        {% else %}
+                                        <option>{{ s }}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group m-1 w-50 align-self-end">
+                                <label class="col-form-label w-100 text-left ml-2" for="zip_code">ZIP Code *</label><br>
+                                <input type="tel" pattern="[0-9]*" id="zip_code" name="zip_code" class="form-control-sm ml-2" minlength=5 maxlength=9 required value='{{ zip_code }}'>
+                            </div>
+                            <div class="form-group m-1">
+                                <input type="submit" name="profile-submit" value="Update Profile" class="btn btn-primary w-100 mt-3">
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+        
+                <footer class="mx-auto mt-3 foot">
+                    <div>
+                        <a href="https://github.com/Days0n/fuelCostPredictor">Github</a>. By Zia Yacoubou, Dayson Vu, and Boris Ofon.</p>
+                    </div>
+                </footer>
+        </div>
+    </body>
+</html>

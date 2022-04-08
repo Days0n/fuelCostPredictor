@@ -1,0 +1,83 @@
+{% load static humanize %}
+<!DOCTYPE html>
+<html>
+    <head>        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>FuelPredictor - Quote History</title>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>           
+
+        <link href="{% static "css/main.css" %}" rel="stylesheet">
+       
+    </head>
+    <body class="text-center">
+        <div class="d-flex flex-column justify-content-between align-items-end w-100" style="min-height: 100vh;">
+                <nav class="navbar navbar-expand-md navbar-dark bg-dark w-100">
+                    <a class="navbar-brand" href="#">FuelPredictor</a>  
+                    <a class="nav-item nav-link" href="{% url 'index_page' %}">Home</a>
+                    <a class="nav-item nav-link" href="{% url 'profile_page' %}">Profile</a>
+                    <a class="nav-item nav-link" href="{% url 'quote_page' %}">Request a quote</a>
+                    <a class="active nav-item nav-link" href="{% url 'history_page' %}">View History</a>
+                    <a class="nav-item nav-link" href="{% url 'logout_page' %}">Log Out</a>
+                    <span class="ml-auto">
+                        <p class="foot mb-0 mr-1"> Welcome {{ user.username }}!</p>
+                    </span>
+                </nav>
+
+                <div class="mx-auto m-2 p-4 bg-dark flex-grow-5" style="border-radius: 10px">
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div class="d-flex flex-column m-2">
+                            <div class="m-1 mb-3">
+                                    <p class="lead mb-1 w-100 mx-auto">Quote History</p>
+                                    <p class="foot mt-0 w-100">Max 10 search results per page</p>
+                            </div>
+                            <div class="m-1" style="min-width: 50vw;">
+                                {% if no_entries %}
+                                <p>{{ msg_no_entries }}</p>
+                                {% else %}
+                                <table class="table table-dark table-striped my-2">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Gallons Requested</th>
+                                            <th scope="col">Delivery Address</th>
+                                            <th scope="col">Delivery Date</th>
+                                            <th scope="col">Price per Gallon</th>
+                                            <th scope="col">Total Price</th>
+                                            <th scope="col">Username</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for record in entries %}
+                                            <tr>
+                                                <td>{{ record.gallons }}</td>
+                                                <td>{{ record.delivery_addr }}</td>
+                                                <td>{{ record.delivery_date }}</td>
+                                                <td>${{ record.unit_price|floatformat:2 }}</td>
+                                                <td>${{ record.total_price|floatformat:2 }}</td>
+                                                <td>{{ usernames|get_item:record.user_id }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex flex-row justify-content-between mt-4 mx-2">
+                                <p><a href="?t={{ prevT }}" class="btn btn-md {% if t == 0 %}btn-secondary{% else %}btn-primary{% endif %}">&lt;&lt; Previous</a></p>
+                                <p><a href="?t={{ nextT }}" class="btn btn-md {% if canSeekNext %}btn-primary{% else %}btn-secondary{% endif %}">Next &gt;&gt;</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <footer class="mx-auto mt-3 foot">
+                    <div>
+                        <a href="https://github.com/Days0n/fuelCostPredictor">Github</a>. By Zia Yacoubou, Dayson Vu, and Boris Ofon.</p>
+                    </div>
+                </footer>
+        </div>
+    </body>
+</html>
