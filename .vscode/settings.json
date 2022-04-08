@@ -1,9 +1,0 @@
-{
-    "cmake.configureOnOpen": false,
-    "sqlite.setupDatabase": {
-    
-    },
-    "terminal.integrated.env.windows": {
-    
-    }
-}
