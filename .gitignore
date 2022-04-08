@@ -1,1 +1,9 @@
-
+.vscode/
+__pycache__/
+env/lib/
+env/include/
+env/bin/
+migrations/
+.DS_Store
+.coverage
+.pyc
