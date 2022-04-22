@@ -16,7 +16,7 @@ def get_price(gallons, date, user_profile, past_orders):
     state = user_profile.state
     loc_factor = 0.02 if state == "Texas" else 0.04
     rate_history_factor = 0.01 if past_orders > 0 else 0.00
-    gallons_requested_factor = 0.02 if gallons >= 1000 else 0.03
+    gallons_requested_factor = 0.02 if gallons > 1000 else 0.03
     company_profit_factor = 0.10  # Fixed
    
 
